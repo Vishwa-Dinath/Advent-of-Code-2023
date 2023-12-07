@@ -1,9 +1,10 @@
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.getSum = exports.findCalibrationValues = exports.getInputs = void 0;
 const sampleInput = "1abc2\n" +
-              "pqr3stu8vwx\n" +
-              "a1b2c3d4e5f\n" +
-              "treb7uchet"
-
+    "pqr3stu8vwx\n" +
+    "a1b2c3d4e5f\n" +
+    "treb7uchet";
 const input = "twovgtprdzcjjzkq3ffsbcblnpq\n" +
     "two8sixbmrmqzrrb1seven\n" +
     "9964pfxmmr474\n" +
@@ -1003,45 +1004,37 @@ const input = "twovgtprdzcjjzkq3ffsbcblnpq\n" +
     "17pgtwofl41\n" +
     "eightoneqjvzv3\n" +
     "fivetwocrhmvxqkvbeightfive1qzcxvds\n" +
-    "2htzsvdhvqvdjv"
-
-export function getInputs(input:string){
-    const inputs : string[] = input.split("\n");
+    "2htzsvdhvqvdjv";
+function getInputs(input) {
+    const inputs = input.split("\n");
     return inputs;
 }
-
-export function findCalibrationValues(inputs:string[]) {
-    const calibrationValues : number[] = []
-    inputs.forEach(input=>{
-        const characters = input.split("")
-        let value:string[] = []
-        characters.forEach(character=>{
-            if (character.match(/\d/)){
-                value.push(character)
+exports.getInputs = getInputs;
+function findCalibrationValues(inputs) {
+    const calibrationValues = [];
+    inputs.forEach(input => {
+        const characters = input.split("");
+        let value = [];
+        characters.forEach(character => {
+            if (character.match(/\d/)) {
+                value.push(character);
             }
-        })
-        let calibration = value[0]+value[value.length-1]
-        calibrationValues.push(+calibration)
-    })
+        });
+        let calibration = value[0] + value[value.length - 1];
+        calibrationValues.push(+calibration);
+    });
     return calibrationValues;
 }
-
-
-export function getSum(values:number[]){
+exports.findCalibrationValues = findCalibrationValues;
+function getSum(values) {
     let sum = 0;
-    values.forEach(value=>{
+    values.forEach(value => {
         sum += value;
-    })
+    });
     return sum;
 }
-
-function pipeLine1(input:string) {
-    return getSum(findCalibrationValues(getInputs(input)))
+exports.getSum = getSum;
+function pipeLine1(input) {
+    return getSum(findCalibrationValues(getInputs(input)));
 }
-
-console.log(pipeLine1(input))
-
-
-
-
-
+console.log(pipeLine1(input));
