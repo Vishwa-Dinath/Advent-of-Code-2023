@@ -170,15 +170,45 @@ export function findPossibleGames(games:Game[]) {
 
 function getSum(possibleGames: number[]) {
     let sum = 0;
-    possibleGames.forEach(index=>{
-        sum += index
+    possibleGames.forEach(each=>{
+        sum += each
     })
     return sum
+}
+
+function findFewerNumberOfCubesGameToPossible(games:Game[]) {
+    const powerSet:number[] = []
+    games.forEach(game=>{
+        let fewerBlueCubes = 0
+        let fewerRedCubes = 0
+        let fewerGreenCubes = 0
+        for (let i = 0; i < game.sets.length; i++) {
+            const tempSet = game.sets[i]
+            if (tempSet.blue > fewerBlueCubes){
+                fewerBlueCubes = tempSet.blue
+            }
+            if (tempSet.red > fewerRedCubes){
+                fewerRedCubes = tempSet.red
+            }
+            if (tempSet.green > fewerGreenCubes){
+                fewerGreenCubes = tempSet.green
+            }
+        }
+        powerSet.push(fewerBlueCubes * fewerRedCubes * fewerGreenCubes)
+    })
+    return powerSet
 }
 
 function pipeline1(input:string){
     return getSum(findPossibleGames(getCubeSets(input)))
 }
 
+function pipeline2(input:string){
+    return getSum(findFewerNumberOfCubesGameToPossible(getCubeSets(input)))
+}
+
 console.log(pipeline1(sampleInput1))
 console.log(pipeline1(input))
+
+console.log(pipeline2(sampleInput1))
+console.log(pipeline2(input))
