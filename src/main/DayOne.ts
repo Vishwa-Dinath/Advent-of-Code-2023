@@ -1,5 +1,5 @@
 
-const sampleInput = "1abc2\n" +
+const sampleInput1 = "1abc2\n" +
               "pqr3stu8vwx\n" +
               "a1b2c3d4e5f\n" +
               "treb7uchet"
@@ -1005,6 +1005,15 @@ const input = "twovgtprdzcjjzkq3ffsbcblnpq\n" +
     "fivetwocrhmvxqkvbeightfive1qzcxvds\n" +
     "2htzsvdhvqvdjv"
 
+const sampleInput2 = "two1nine\n" +
+    "eightwothree\n" +
+    "abcone2threexyz\n" +
+    "xtwone3four\n" +
+    "4nineeightseven2\n" +
+    "zoneight234\n" +
+    "7pqrstsixteen"
+
+
 export function getInputs(input:string){
     const inputs : string[] = input.split("\n");
     return inputs;
@@ -1026,6 +1035,45 @@ export function findCalibrationValues(inputs:string[]) {
     return calibrationValues;
 }
 
+// for part 2
+const digitsInLetters = ["one","two","three","four","five","six","seven","eight","nine"]
+const numbers = ["1","2","3","4","5","6","7","8","9"]
+
+export function findDigitsWithLetters(input:string) {
+    const indexes : number[] = []
+    const values : string[] = []
+    digitsInLetters.forEach(digit=>{
+        let index = input.indexOf(digit)
+        while (index!==-1){
+            indexes.push(index)
+            values.push(numbers[digitsInLetters.indexOf(digit)])
+            index = input.indexOf(digit,index+1)
+        }
+    })
+    const characters = input.split("");
+    for (let i = 0; i < indexes.length; i++) {
+        characters[indexes[i]]= values[i]
+    }
+    return characters.join("")
+}
+
+
+export function findCalibrationValuesSolution2(inputs:string[]){
+    const calibrationValues : number[] = []
+    inputs.forEach(input=>{
+        input = findDigitsWithLetters(input)
+        const characters = input.split("")
+        let value:string[] = []
+        characters.forEach(character=>{
+            if (character.match(/\d/)){
+                value.push(character)
+            }
+        })
+        let calibration = value[0]+value[value.length-1]
+        calibrationValues.push(+calibration)
+    })
+    return calibrationValues;
+}
 
 export function getSum(values:number[]){
     let sum = 0;
@@ -1039,7 +1087,17 @@ function pipeLine1(input:string) {
     return getSum(findCalibrationValues(getInputs(input)))
 }
 
+function pipeLine2(input: string) {
+    return getSum(findCalibrationValuesSolution2(getInputs(input)))
+}
+
+console.log(pipeLine1(sampleInput1))
 console.log(pipeLine1(input))
+console.log(pipeLine2(sampleInput2))
+console.log(pipeLine2(input))
+
+
+
 
 
 

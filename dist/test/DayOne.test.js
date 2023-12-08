@@ -17,3 +17,6 @@ const actual2 = [12, 38, 15, 77];
 (0, vitest_1.test)('Test getSum() method', () => {
     (0, vitest_1.expect)((0, DayOne_1.getSum)(actual2)).toBe(142);
 });
+(0, vitest_1.test)('Test findDigitsWithLetters() method', () => {
+    (0, vitest_1.expect)((0, DayOne_1.findDigitsWithLetters)("eightwothree")).toBe("8igh2wo3hree");
+});
