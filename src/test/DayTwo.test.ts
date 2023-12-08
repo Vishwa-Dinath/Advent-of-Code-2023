@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest'
-import { getCubeSets, Game, CubeSet, makeSet, findPossibleGames } from '../main/DayTwo'
+import { getCubeSets, Game, CubeSet, makeSet, findPossibleGames, findFewerNumberOfCubesGameToPossible } from '../main/DayTwo'
 
 const sampleInput = "Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green\n" +
     "Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue"
@@ -21,4 +21,9 @@ test('Test makeSet()',()=>{
 const actualOutput = [1,2]
 test('Test findPossibleGames()',()=>{
     expect(findPossibleGames(actual)).toEqual(actualOutput)
+})
+
+const actualOutput2 = [48,12]
+test('Test findFewerNumberOfCubesGameToPossible()',()=>{
+    expect(findFewerNumberOfCubesGameToPossible(actual)).toEqual(actualOutput2)
 })

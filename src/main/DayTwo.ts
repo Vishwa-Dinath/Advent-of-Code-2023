@@ -176,7 +176,7 @@ function getSum(possibleGames: number[]) {
     return sum
 }
 
-function findFewerNumberOfCubesGameToPossible(games:Game[]) {
+export function findFewerNumberOfCubesGameToPossible(games:Game[]) {
     const powerSet:number[] = []
     games.forEach(game=>{
         let fewerBlueCubes = 0
