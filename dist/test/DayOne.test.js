@@ -20,3 +20,8 @@ const actual2 = [12, 38, 15, 77];
 (0, vitest_1.test)('Test findDigitsWithLetters() method', () => {
     (0, vitest_1.expect)((0, DayOne_1.findDigitsWithLetters)("eightwothree")).toBe("8igh2wo3hree");
 });
+const input2 = ["two1nine", "eightwothree", "abcone2threexyz", "xtwone3four", "4nineeightseven2", "zoneight234", "7pqrstsixteen"];
+const output = [29, 83, 13, 24, 42, 14, 76];
+(0, vitest_1.test)('findCalibrationValuesSolution2', () => {
+    (0, vitest_1.expect)((0, DayOne_1.findCalibrationValuesSolution2)(input2)).toEqual(output);
+});

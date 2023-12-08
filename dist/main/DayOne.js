@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getSum = exports.findDigitsWithLetters = exports.findCalibrationValues = exports.getInputs = void 0;
+exports.getSum = exports.findCalibrationValuesSolution2 = exports.findDigitsWithLetters = exports.findCalibrationValues = exports.getInputs = void 0;
 const sampleInput1 = "1abc2\n" +
     "pqr3stu8vwx\n" +
     "a1b2c3d4e5f\n" +
@@ -1070,6 +1070,7 @@ function findCalibrationValuesSolution2(inputs) {
     });
     return calibrationValues;
 }
+exports.findCalibrationValuesSolution2 = findCalibrationValuesSolution2;
 function getSum(values) {
     let sum = 0;
     values.forEach(value => {

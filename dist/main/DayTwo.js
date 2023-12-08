@@ -1,9 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.findPossibleGames = exports.makeSet = exports.getCubeSets = exports.CubeSet = exports.Game = void 0;
 const sampleInput1 = "Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green\n" +
     "Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue\n" +
     "Game 3: 8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red\n" +
     "Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red\n" +
-    "Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green"
-
+    "Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green";
 const input = "Game 1: 19 blue, 12 red; 19 blue, 2 green, 1 red; 13 red, 11 blue\n" +
     "Game 2: 1 green, 1 blue, 1 red; 11 red, 3 blue; 1 blue, 18 red; 9 red, 1 green; 2 blue, 11 red, 1 green; 1 green, 2 blue, 10 red\n" +
     "Game 3: 3 blue, 2 red, 6 green; 4 blue, 6 green, 1 red; 11 green, 12 blue; 2 red, 6 green, 4 blue; 4 green\n" +
@@ -103,82 +105,86 @@ const input = "Game 1: 19 blue, 12 red; 19 blue, 2 green, 1 red; 13 red, 11 blue
     "Game 97: 15 green, 9 blue; 14 blue, 14 red, 2 green; 18 red, 12 blue, 2 green\n" +
     "Game 98: 1 green, 9 red; 1 red, 2 green, 7 blue; 8 red, 1 blue; 6 red, 2 green; 1 green, 6 blue\n" +
     "Game 99: 1 green, 2 red, 6 blue; 6 red, 1 green, 5 blue; 11 blue, 6 red; 11 red, 1 green; 1 green, 11 red, 9 blue\n" +
-    "Game 100: 12 green, 8 blue, 2 red; 7 blue, 14 red, 8 green; 14 red, 1 blue, 4 green"
-
-export class Game{
-    constructor(public gameID:number,public sets:CubeSet[]) {
+    "Game 100: 12 green, 8 blue, 2 red; 7 blue, 14 red, 8 green; 14 red, 1 blue, 4 green";
+class Game {
+    constructor(gameID, sets) {
+        this.gameID = gameID;
+        this.sets = sets;
     }
 }
-export class CubeSet{
-    constructor(public blue:number, public red:number, public green:number) {}
+exports.Game = Game;
+class CubeSet {
+    constructor(blue, red, green) {
+        this.blue = blue;
+        this.red = red;
+        this.green = green;
+    }
 }
-
-const presentCubeSet = new CubeSet(14,12,13)
-
-export function getCubeSets(input:string){
-    const inputs : string[] = input.split("\n");
-    const games:Game[] = []
-    inputs.forEach(input=>{// "Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green"
-        const gameNumber = +input.split(":")[0].replace("Game ",""); // 1
+exports.CubeSet = CubeSet;
+const presentCubeSet = new CubeSet(14, 12, 13);
+function getCubeSets(input) {
+    const inputs = input.split("\n");
+    const games = [];
+    inputs.forEach(input => {
+        const gameNumber = +input.split(":")[0].replace("Game ", ""); // 1
         const cubeSets = input.split(":")[1].trim().split(";"); // ["3 blue, 4 red", "1 red, 2 green, 6 blue", "2 green"]
-        const sets:CubeSet[] = []
-        cubeSets.forEach(set=>{
-            sets.push(makeSet(set))
-        })
-        games.push(new Game(gameNumber,sets))
-    })
+        const sets = [];
+        cubeSets.forEach(set => {
+            sets.push(makeSet(set));
+        });
+        games.push(new Game(gameNumber, sets));
+    });
     return games;
 }
-
-export function makeSet(set:string){ //      "3 blue, 4 red"
+exports.getCubeSets = getCubeSets;
+function makeSet(set) {
     let blueCubes = 0;
     let redCubes = 0;
     let greenCubes = 0;
     const cubes = set.split(",");
-    cubes.forEach(cube=>{
-        const amount = +cube.trim().split(" ")[0]
-        const color = cube.trim().split(" ")[1]
+    cubes.forEach(cube => {
+        const amount = +cube.trim().split(" ")[0];
+        const color = cube.trim().split(" ")[1];
         switch (color) {
             case "blue":
-                blueCubes = amount
-                break
+                blueCubes = amount;
+                break;
             case "red":
-                redCubes = amount
-                break
+                redCubes = amount;
+                break;
             case "green":
-                greenCubes = amount
+                greenCubes = amount;
         }
-    })
-    return new CubeSet(blueCubes,redCubes,greenCubes)
+    });
+    return new CubeSet(blueCubes, redCubes, greenCubes);
 }
-
-export function findPossibleGames(games:Game[]) {
-    const possibleGames:number[] = []
-    games.forEach(game=>{
+exports.makeSet = makeSet;
+function findPossibleGames(games) {
+    const possibleGames = [];
+    games.forEach(game => {
         let possible = true;
         for (let i = 0; i < game.sets.length; i++) {
-            const tempSet = game.sets[i]
-            if (tempSet.blue > presentCubeSet.blue || tempSet.red > presentCubeSet.red || tempSet.green > presentCubeSet.green){
+            const tempSet = game.sets[i];
+            if (tempSet.blue > presentCubeSet.blue || tempSet.red > presentCubeSet.red || tempSet.green > presentCubeSet.green) {
                 possible = false;
-                break
+                break;
             }
         }
-        if (possible) possibleGames.push(game.gameID)
-    })
-    return possibleGames
+        if (possible)
+            possibleGames.push(game.gameID);
+    });
+    return possibleGames;
 }
-
-function getSum(possibleGames: number[]) {
+exports.findPossibleGames = findPossibleGames;
+function getSum(possibleGames) {
     let sum = 0;
-    possibleGames.forEach(index=>{
-        sum += index
-    })
-    return sum
+    possibleGames.forEach(index => {
+        sum += index;
+    });
+    return sum;
 }
-
-function pipeline1(input:string){
-    return getSum(findPossibleGames(getCubeSets(input)))
+function pipeline1(input) {
+    return getSum(findPossibleGames(getCubeSets(input)));
 }
-
-console.log(pipeline1(sampleInput1))
-console.log(pipeline1(input))
+console.log(pipeline1(sampleInput1));
+console.log(pipeline1(input));
